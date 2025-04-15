@@ -1,0 +1,11 @@
+{
+  "domain": "wspr_live",
+  "name": "WSPR.live Sensor",
+  "version": "1.1.0",
+  "documentation": "https://wspr.live",
+  "dependencies": [],
+  "codeowners": [],
+  "requirements": [],
+  "iot_class": "cloud_polling",
+  "integration_type": "integration"
+}
