@@ -2,6 +2,8 @@
 
 Track your WSPR (Weak Signal Propagation Reporter) activity live from [https://wspr.live](https://wspr.live) within Home Assistant. This custom integration provides real-time RX and TX spot data including distance, band, SNR, and country.
 
+Disclaimer: This project was generated and optimized with the assistance of AI tools. While tested and functional, it is not developed or maintained by a professional software developer. Use at your own risk.
+
 ![Screenshot](https://your-screenshot-url-here.png)
 
 ## Features
