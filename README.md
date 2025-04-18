@@ -1,25 +1,68 @@
-WSPR.live Integration for Home Assistant
+# WSPR.live Home Assistant Integration
 
-Overview
+Track your WSPR (Weak Signal Propagation Reporter) activity live from [https://wspr.live](https://wspr.live) within Home Assistant. This custom integration provides real-time RX and TX spot data including distance, band, SNR, and country.
 
-The WSPR.live integration allows amateur radio operators to access and display WSPR (Weak Signal Propagation Reporter) data within Home Assistant. WSPR is a protocol used by ham radio operators to test radio wave propagation across the globe using low-power transmissions. This integration connects to the WSPR.live database to retrieve information about stations that have received your transmissions (TX spots) and stations you have received (RX spots).
+![Screenshot](https://your-screenshot-url-here.png)
 
-What is WSPR?
-WSPR (pronounced "whisper") stands for Weak Signal Propagation Reporter. It is a digital mode designed to send and receive low-power transmissions to test propagation paths on the amateur radio bands. The protocol uses a compressed data format to transmit a callsign, grid locator, and power level, allowing other stations to receive and report these signals even when they are extremely weak, sometimes below the noise floor.
+## Features
 
-Features
-Real-time TX Data: View stations that have received your transmissions
-Real-time RX Data: View stations you have received
-Detailed Information: For each spot, see:
-Station callsigns
-Signal-to-noise ratio (SNR)
-Distance in kilometers
-Band information
-Country information (derived from callsigns)
-Timestamp of reception
-Automatic Updates: Data refreshes at configurable intervals
+- Two custom sensors: `sensor.wspr_live_tx_spots` and `sensor.wspr_live_rx_spots`
+- Pulls live WSPR data from [https://wspr.live](https://wspr.live)
+- Country detection based on callsign prefix
+- Band label mapping (e.g., 14.0 → 20M)
+- Updated regularly (configurable)
 
-Installation
-Copy the wspr_live folder to your Home Assistant custom_components directory
-Restart Home Assistant
-Configure the integration in your configuration.yaml file
+## Installation
+
+> **Note**: This project is not yet listed in HACS. Manual installation is required.
+
+### Manual Install
+
+1. Copy the `wspr_live` directory into your Home Assistant `custom_components/` folder.
+
+    ```bash
+    custom_components/
+    └── wspr_live/
+        ├── __init__.py  (optional placeholder)
+        ├── manifest.json
+        └── sensor.py
+    ```
+
+2. Restart Home Assistant.
+
+3. Add the sensor to your `configuration.yaml`:
+
+    ```yaml
+    sensor:
+      - platform: wspr_live
+        callsign: G0IKV
+        interval: 60  # in minutes
+    ```
+
+4. Check your Home Assistant logs to verify it's working.
+
+## Configuration Options
+
+| Option     | Required | Description                                      |
+|------------|----------|--------------------------------------------------|
+| `callsign` | Yes      | Your amateur radio callsign (e.g. `G0IKV`)       |
+| `interval` | No       | Polling interval in minutes (default: `60`)     |
+
+## Sensor Entities
+
+This integration will create two sensors:
+
+- `sensor.wspr_live_rx_spots`: Spots **received by** your station
+- `sensor.wspr_live_tx_spots`: Spots **received by others** from your transmission
+
+Each sensor has attributes:
+
+```yaml
+- tx: transmitting station callsign
+- rx: receiving station callsign
+- band: frequency in MHz
+- band_label: e.g. "20M"
+- snr: signal-to-noise ratio
+- distance: in kilometers
+- country: resolved from callsign
+- time: UTC timestamp
