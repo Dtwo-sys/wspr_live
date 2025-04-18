@@ -1,28 +1,53 @@
-# WSPR.live Integration for Home Assistant
+type: markdown
+content: >+
+  # WSPR Distance Records 📡
 
-This is a custom integration that adds sensors to Home Assistant showing WSPR RX and TX spots retrieved from [WSPR.live](https://wspr.live).
 
-## Features
+  ### 🏆 All-Time Records
 
-- Adds two sensors:
-  - `sensor.wspr_live_rx_spots`
-  - `sensor.wspr_live_tx_spots`
-- Fully usable in dashboards and automations
+  | Type | Station | Distance |
 
-## Installation
+  |:----:|:-------:|:---------:|
 
-1. Place the `wspr_live` folder into `/config/custom_components/`
-2. Restart Home Assistant
+  | 📥 RX | {{ states('input_text.wspr_rx_record_callsign') or 'None' }} | {% if
+  states('input_number.wspr_rx_record_distance') | float > 0 %}{{
+  (states('input_number.wspr_rx_record_distance') | float * 0.621371) | round(0)
+  }} mi ({{ states('input_number.wspr_rx_record_distance') }} km){% else %}No
+  record{% endif %} |
 
-## HACS
+  | 📤 TX | {{ states('input_text.wspr_tx_record_callsign') or 'None' }} | {% if
+  states('input_number.wspr_tx_record_distance') | float > 0 %}{{
+  (states('input_number.wspr_tx_record_distance') | float * 0.621371) | round(0)
+  }} mi ({{ states('input_number.wspr_tx_record_distance') }} km){% else %}No
+  record{% endif %} |
 
-Add this repo as a custom repository in HACS under "Integrations".
 
-## Disclaimer
+  ### 📊 Current Session
 
-This project was primarily built using generative AI assistance and is provided as-is.
-I am not a professional coder. Use at your own risk.
+  | Type | Station | Distance |
 
-## License
+  |:----:|:-------:|:---------:|
 
-[MIT](LICENSE)
+  | 📥 RX | {{ states('sensor.wspr_furthest_rx_callsign') }} | {% if
+  states('sensor.wspr_furthest_rx_distance') != '0' %}{{
+  (states('sensor.wspr_furthest_rx_distance') | float * 0.621371) | round(0) }}
+  mi ({{ states('sensor.wspr_furthest_rx_distance') }} km){% else %}No spots{%
+  endif %} |
+
+  | 📤 TX | {{ states('sensor.wspr_furthest_tx_callsign') }} | {% if
+  states('sensor.wspr_furthest_tx_distance') != '0' %}{{
+  (states('sensor.wspr_furthest_tx_distance') | float * 0.621371) | round(0) }}
+  mi ({{ states('sensor.wspr_furthest_tx_distance') }} km){% else %}No spots{%
+  endif %} |
+
+
+  ### 📶 Spot Counts
+
+  | Type | Count |
+
+  |:----:|:-----:|
+
+  | 📥 RX | {{ states('sensor.wspr_live_rx_spots') }} spots |
+
+  | 📤 TX | {{ states('sensor.wspr_live_tx_spots') }} spots |
+
