@@ -4,7 +4,7 @@ Track your WSPR (Weak Signal Propagation Reporter) activity live from [https://w
 
 > **Disclaimer**: This project was generated and optimized with the assistance of AI tools. While tested and functional, it is not developed or maintained by a professional software developer. Use at your own risk.
 
-![Screenshot](https://github.com/user-attachments/assets/651d3427-ec40-4d81-be45-5a7fb6b08b3c)
+![Screenshot](https://github.com/user-attachments/assets/9e779a75-6a25-47ac-9a92-a4e5591c5ad4)
 
 ## Features
 
