@@ -1,7 +1,0 @@
-{
-  "name": "WSPR.live",
-  "content_in_root": false,
-  "domain": "wspr_live",
-  "homeassistant": "2022.0.0",
-  "render_readme": true
-}
