@@ -97,23 +97,52 @@ template:
 
 ## 📊 Dashboard Example
 
-Here's a sample card you can add to your dashboard:
+Here's a HTML Tempplate Card, add in needed you can add to your dashboard to show Rx Spots:
 
 ```yaml
-type: entities
-title: WSPR Spots
-entities:
-  - entity: sensor.wspr_live_rx_spots
-    name: Received Spots
-    secondary_info: last-updated
-  - entity: sensor.wspr_live_tx_spots 
-    name: Transmitted Spots
-    secondary_info: last-updated
-  - entity: sensor.wspr_furthest_rx_distance
-    name: Max RX Distance
-  - entity: sensor.wspr_furthest_tx_distance
-    name: Max TX Distance
+type: custom:html-template-card
+title: ""
+content: >
+  {% set spots = state_attr('sensor.wspr_live_rx_spots', 'spots') %}{% if spots
+  and spots[0].time %}{% set dt = as_datetime(spots[0].time) %}{% endif %}<div
+  style="font-family: monospace; font-size: 16px; font-weight: bold;
+  margin-bottom: 0;">WSPR RX Spots</div><div style="font-family: monospace;
+  font-size: 13px; color: #666; margin-top: 0; margin-bottom: 4px;">{% if dt
+  %}{{ dt.strftime('%d %B %Y') }} UTC{% endif %}</div><div style="font-family:
+  monospace; font-size: 14px;">{% for s in spots %}<div style="display: grid;
+  grid-template-columns: 70px 90px 75px 45px 60px auto; grid-gap: 5px; margin:
+  1px 0;"><span style="color:#888;">{{ s.time[-8:] }}</span><span
+  style="font-weight:bold;">{{ s.tx }}</span><span style="color:#666; font-size:
+  12px;">{{ s.country }}</span><span>{{ s.band_label }}</span><span>{{
+  '%+3d'|format(s.snr|int) }} dB</span><span style="font-weight:bold;{% if
+  s.distance|int > 5000 %}color:red;{% endif %}">{{ (s.distance|float *
+  0.621371)|round }}mi</span></div>{% endfor %}</div>
+
 ```
+
+And Tx Spots - 
+
+```yaml
+type: custom:html-template-card
+title: ""
+content: >
+  {% set spots = state_attr('sensor.wspr_live_tx_spots', 'spots') %}{% if spots
+  and spots[0].time %}{% set dt = as_datetime(spots[0].time) %}{% endif %}<div
+  style="font-family: monospace; font-size: 16px; font-weight: bold;
+  margin-bottom: 0;">WSPR TX Spots</div><div style="font-family: monospace;
+  font-size: 13px; color: #666; margin-top: 0; margin-bottom: 4px;">{% if dt
+  %}{{ dt.strftime('%d %B %Y') }} UTC{% endif %}</div><div style="font-family:
+  monospace; font-size: 14px;">{% for s in spots %}<div style="display: grid;
+  grid-template-columns: 70px 90px 75px 45px 60px auto; grid-gap: 5px; margin:
+  1px 0;"><span style="color:#888;">{{ s.time[-8:] }}</span><span
+  style="font-weight:bold;">{{ s.rx }}</span><span style="color:#666; font-size:
+  12px;">{{ s.country }}</span><span>{{ s.band_label }}</span><span>{{
+  '%+3d'|format(s.snr|int) }} dB</span><span style="font-weight:bold;{% if
+  s.distance|int > 5000 %}color:red;{% endif %}">{{ (s.distance|float *
+  0.621371)|round }}mi</span></div>{% endfor %}</div>
+
+...
+
 
 ## 🧠 Long-term Record Tracking
 
