@@ -141,7 +141,7 @@ content: >
   s.distance|int > 5000 %}color:red;{% endif %}">{{ (s.distance|float *
   0.621371)|round }}mi</span></div>{% endfor %}</div>
 
-...
+```
 
 
 ## 🧠 Long-term Record Tracking
