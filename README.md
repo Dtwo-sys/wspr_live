@@ -146,67 +146,8 @@ content: >
 
 ## 🧠 Long-term Record Tracking
 
-For tracking long-term WSPR records across Home Assistant restarts, you can use `input_number` and `input_text` helpers with automations:
+For tracking long-term WSPR records across Home Assistant restarts, you can use `input_number` and `input_text` helpers with automations.
 
-### ➕ Add input helpers
-
-```yaml
-input_number:
-  wspr_rx_record_distance:
-    name: RX Record Distance
-    min: 0
-    max: 20000
-    step: 1
-    unit_of_measurement: km
-
-input_text:
-  wspr_rx_record_callsign:
-    name: RX Record Callsign
-```
-
-### 🔁 Create automation to update when a new record is set
-
-```yaml
-automation:
-  - alias: Update WSPR RX Record
-    trigger:
-      - platform: state
-        entity_id: sensor.wspr_furthest_rx_distance
-    condition:
-      - condition: template
-        value_template: >
-          {{ 
-            trigger.to_state.state | float(0) > 0 and
-            trigger.to_state.state | float(0) > states('input_number.wspr_rx_record_distance') | float(0)
-          }}
-    action:
-      - service: input_number.set_value
-        data:
-          value: "{{ trigger.to_state.state }}"
-        target:
-          entity_id: input_number.wspr_rx_record_distance
-      - service: input_text.set_value
-        data:
-          value: "{{ states('sensor.wspr_furthest_rx_callsign') }}"
-        target:
-          entity_id: input_text.wspr_rx_record_callsign
-```
-
-### 🔄 Add a reset script
-
-```yaml
-script:
-  reset_wspr_records:
-    alias: Reset WSPR Records
-    sequence:
-      - service: input_number.set_value
-        data:
-          value: 0
-        target:
-          entity_id: 
-            - input_number.wspr_rx_record_distance
-            - input_number.wspr_tx_record_distance
-```
 
 ## ⚠️ Limitations
 
