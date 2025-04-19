@@ -148,6 +148,7 @@ content: >
 
 For tracking long-term WSPR records across Home Assistant restarts, you can use `input_number` and `input_text` helpers with automations.
 
+![Image](https://github.com/user-attachments/assets/a668e16a-e15b-4d7b-aaf4-3a9b911ac84a)
 
 ## ⚠️ Limitations
 
