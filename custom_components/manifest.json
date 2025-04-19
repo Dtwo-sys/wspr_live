@@ -1,0 +1,10 @@
+
+{
+  "domain": "wspr_live",
+  "name": "WSPR.live Integration",
+  "version": "1.0.0",
+  "documentation": "https://github.com/davidsouthworth/wspr-live",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@davidsouthworth"]
+}
