@@ -98,6 +98,7 @@ template:
 ## 📊 Dashboard Example
 
 Here's a HTML Tempplate Card, add in needed you can add to your dashboard to show Rx Spots:
+Note the HTML Template Card requires the custom card to be installed from HACS
 
 ```yaml
 type: custom:html-template-card
