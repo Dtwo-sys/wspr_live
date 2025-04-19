@@ -54,8 +54,8 @@ Track your WSPR (Weak Signal Propagation Reporter) activity live from [https://w
 
 This integration will create two sensors:
 
-- `sensor.wspr_live_rx_spots`: Spots **received by** your station
-- `sensor.wspr_live_tx_spots`: Spots **received by others** from your transmission
+- `sensor.wspr_live_rx_spots`: Spots **received by** your station, capped at 100
+- `sensor.wspr_live_tx_spots`: Spots **received by others** from your transmission, capped at 50
 
 Each sensor has attributes:
 
